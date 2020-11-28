@@ -8,6 +8,7 @@ import java.util.Scanner;
  * @author Seweryn Gładysz
  * @version 1.1
  */
+@Deprecated
 public class ConsoleView {
 
     /**
