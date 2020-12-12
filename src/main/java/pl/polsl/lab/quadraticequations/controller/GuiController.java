@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.polsl.lab.quadraticequations.controller;
 
 import java.io.IOException;
@@ -15,26 +10,21 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 /**
+ * Main JavaFX graphic user interface controller
  *
  * @author Seweryn Gładysz
  */
 public class GuiController extends Application {
-    
-    private static Scene scene;
-    
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("main"), 640, 480);
+        Scene scene = new Scene(loadMainFXML());
         stage.setScene(scene);
+        stage.setTitle("Równania kwadratowe");
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        URL name = MainController.class.getResource(fxml + ".fxml");
+    private static Parent loadMainFXML() throws IOException {
+        URL name = MainController.class.getResource("/main.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(name);
         return fxmlLoader.load();
     }
