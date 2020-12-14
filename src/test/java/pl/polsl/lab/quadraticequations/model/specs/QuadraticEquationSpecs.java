@@ -295,4 +295,6 @@ public class QuadraticEquationSpecs {
             fail("Should calculate valid definite integral for positive step");
         }
     }
+
+    // TODO add unit tests for toString() method
 }

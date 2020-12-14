@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 /**
  * The ConsoleView class provides methods for displaying and scanning information to the user.
+ * is deprecated, use only on your own risk!
  *
  * @author Seweryn Gładysz
- * @version 1.1
+ * @version 1.2
  */
 @Deprecated
 public class ConsoleView {
