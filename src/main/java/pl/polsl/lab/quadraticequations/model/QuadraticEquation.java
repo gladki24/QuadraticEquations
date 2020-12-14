@@ -10,7 +10,7 @@ import java.util.Map;
  * calculate the definite integral
  *
  * @author Seweryn Gładysz
- * @version 1.1
+ * @version 1.2
  */
 @Equation
 public class QuadraticEquation {
@@ -166,6 +166,45 @@ public class QuadraticEquation {
         map.put("c", c);
 
         return map;
+    }
+
+    /**
+     * transform equation to readable string
+     * @return equation in readable format
+     */
+    @Override
+    public String toString() {
+        // init  message
+        String message = "";
+
+        // format pretty print for a factor
+        if (a != 0) {
+            if (a > 0) {
+                message += String.format("%.3fx^2", a);
+            } else {
+                message += String.format("- %.3fx^2", a * -1);
+            }
+        }
+
+        // format pretty print for b factor
+        if (b != 0) {
+            if (b > 0) {
+                message += String.format(" + %.3fx", b);
+            } else {
+                message += String.format(" - %.3fx", b * -1);
+            }
+        }
+
+        // format pretty print for c factor
+        if (c != 0) {
+            if (b > 0) {
+                message += String.format(" + %.3f", c);
+            } else {
+                message += String.format(" - %.3f", c * -1);
+            }
+        }
+
+        return message;
     }
 
     /**
