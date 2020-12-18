@@ -3,7 +3,6 @@ package pl.polsl.lab.quadraticequations.controller;
 import java.io.IOException;
 import java.net.URL;
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +14,6 @@ import javafx.fxml.FXMLLoader;
  * @version 1.0
  */
 public class GuiController extends Application {
-
     /**
      * start main stage of GUI
      *
@@ -24,22 +22,22 @@ public class GuiController extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = new Scene(loadMainFXML());
-        stage.setScene(scene);
-        stage.setTitle("Równania kwadratowe");
-        stage.show();
-    }
 
-    /**
-     * return main FXML file to init graphic user interface
-     *
-     * @return main fxml file
-     * @throws IOException - throws input/output exception
-     */
-    private static Parent loadMainFXML() throws IOException {
+        // load template from fxml file
         URL name = MainController.class.getResource("/main.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(name);
-        return fxmlLoader.load();
+
+        // set scene
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+
+        // pass application arguments
+        MainController mainController = fxmlLoader.getController();
+        mainController.setInitialValues(getParameters().getUnnamed());
+
+        // configure stage
+        stage.setTitle("Równania kwadratowe");
+        stage.show();
     }
 
     /**
@@ -48,7 +46,6 @@ public class GuiController extends Application {
      * @param args - run parameters
      */
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
-    
 }

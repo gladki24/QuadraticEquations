@@ -1,6 +1,8 @@
 package pl.polsl.lab.quadraticequations.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -93,27 +95,13 @@ public class MainController implements Initializable {
     /**
      * Main Controller initialization
      *
-     * @param url
-     * @param rb
+     * @param url - The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb - the resources used to localize the root object, or null if the root object was not localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // init equation
         activeEquation = new QuadraticEquation();
-
-        // init equation factors
-        activeEquation.setA(1);
-        activeEquation.setB(1);
-        activeEquation.setC(1);
-
-        // init fields
-        updateFactorFields();
-        startRangeTextBox.setText(String.format("%.0f", -5.0));
-        endRangeTextBox.setText(String.format("%.0f", 5.0));
-        stepTextBox.setText(String.format("%.0f", 1.0));
-
-        // display results
-        updateResultFields();
 
         // listen selection change
         equationsListView
@@ -124,6 +112,73 @@ public class MainController implements Initializable {
                         selectEquationFromList(nextEquation);
                     }
                 });
+    }
+
+    /**
+     * set initial form values
+     * @param arguments - application parameters for equation: ax^2 + bx + c,
+     * where first parameter = a, second parameter = b, third parameter = c,
+     * 4th parameter = star range, 5th parameter = end range, 6th parameter = step
+     * Main application method. {@code main()} method manage application operations.
+     */
+    public void setInitialValues(List<String> arguments) {
+        double initAFactor, initBFactor, initCFactor, initStartRange, initEndRange, initStep;
+
+        // init a factor value
+        try {
+            initAFactor = Double.parseDouble(arguments.get(0));
+        } catch (NumberFormatException exception) {
+            initAFactor = -1;
+        }
+
+        // init b factor value
+        try {
+            initBFactor = Double.parseDouble(arguments.get(1));
+        } catch (NumberFormatException exception) {
+            initBFactor = 1;
+        }
+
+        // init c factor value
+        try {
+            initCFactor = Double.parseDouble(arguments.get(2));
+        } catch (NumberFormatException exception) {
+            initCFactor = -1;
+        }
+
+        // init start range value
+        try {
+            initStartRange = Double.parseDouble(arguments.get(3));
+        } catch (NumberFormatException exception) {
+            initStartRange = -10;
+        }
+
+        // init end range value
+        try {
+            initEndRange = Double.parseDouble(arguments.get(4));
+        } catch (NumberFormatException exception) {
+            initEndRange = 10;
+        }
+
+        // init step value
+        try {
+            initStep = Double.parseDouble(arguments.get(5));
+        } catch (NumberFormatException exception) {
+            initStep = 0.1;
+        }
+
+        // init equation factors
+        activeEquation.setA(initAFactor);
+        activeEquation.setB(initBFactor);
+        activeEquation.setC(initCFactor);
+
+        // init fields
+        updateFactorFields();
+        startRangeTextBox.setText(String.format("%.0f", initStartRange));
+        endRangeTextBox.setText(String.format("%.0f", initEndRange));
+        stepTextBox.setText(String.format("%.0f", initStep));
+
+        // display results
+        updateResultFields();
     }
 
     /**
@@ -172,9 +227,9 @@ public class MainController implements Initializable {
      */
     @FXML
     private void updateResultFields() {
-        this.updateIntegralResultField();
-        this.updateRootsFields();
         this.updateEquationField();
+        this.updateRootsFields();
+        this.updateIntegralResultField();
     }
 
     /**

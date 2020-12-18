@@ -18,7 +18,7 @@ import java.util.Map;
  * Unit tests for {@link pl.polsl.lab.quadraticequations.model.QuadraticEquation} class
  *
  * @author Seweryn Gładysz
- * @version 1.0
+ * @version 1.1
  */
 public class QuadraticEquationSpecs {
 
@@ -283,7 +283,7 @@ public class QuadraticEquationSpecs {
      * Should return valid definite integral value for range length equals with step
      */
     @Test
-    public void ShouldCalculateValidDefiniteIntegralForRangeLengthEqualsWithStep() {
+    public void shouldCalculateValidDefiniteIntegralForRangeLengthEqualsWithStep() {
         equation.setA(2);
         equation.setB(5);
         equation.setC(10);
@@ -296,5 +296,122 @@ public class QuadraticEquationSpecs {
         }
     }
 
-    // TODO add unit tests for toString() method
+    @Test
+    public void shouldReturnValidEquationStringForOnlyCFactor() {
+        // positive
+        equation.setA(0);
+        equation.setB(0);
+        equation.setC(2);
+        assertEquals("2,000", equation.toString());
+
+        // negative
+        equation.setC(-2);
+        assertEquals(" - 2,000", equation.toString());
+    }
+
+    @Test
+    public void shouldReturnValidEquationStringForOnlyBFactor() {
+        // positive
+        equation.setA(0);
+        equation.setB(2);
+        equation.setC(0);
+        assertEquals("2,000x", equation.toString());
+
+        // negative
+        equation.setB(-2);
+        assertEquals(" - 2,000x", equation.toString());
+    }
+
+    @Test
+    public void shouldReturnValidEquationStringForOnlyAFactor() {
+        // positive
+        equation.setA(2);
+        equation.setB(0);
+        equation.setC(0);
+        assertEquals("2,000x^2", equation.toString());
+
+        // negative
+        equation.setA(-2);
+        assertEquals("- 2,000x^2", equation.toString());
+    }
+
+    @Test
+    public void shouldReturnValidEquationStringForAAndBFactors() {
+        // both positive
+        equation.setA(2);
+        equation.setB(2);
+        equation.setC(0);
+        assertEquals("2,000x^2 + 2,000x", equation.toString());
+
+        // positive and negative
+        equation.setA(2);
+        equation.setB(-2);
+        assertEquals("2,000x^2 - 2,000x", equation.toString());
+
+        // negative and positive
+        equation.setA(-2);
+        equation.setB(2);
+        assertEquals("- 2,000x^2 + 2,000x", equation.toString());
+
+        // both negative
+        equation.setA(-2);
+        equation.setB(-2);
+        assertEquals("- 2,000x^2 - 2,000x", equation.toString());
+    }
+
+    @Test
+    public void shouldReturnValidEquationStringForAAndCFactors() {
+        // both positive
+        equation.setA(2);
+        equation.setB(0);
+        equation.setC(2);
+        assertEquals("2,000x^2 + 2,000", equation.toString());
+
+        // positive and negative
+        equation.setA(2);
+        equation.setC(-2);
+        assertEquals("2,000x^2 - 2,000", equation.toString());
+
+        // negative and positive
+        equation.setA(-2);
+        equation.setC(2);
+        assertEquals("- 2,000x^2 + 2,000", equation.toString());
+
+        // both negative
+        equation.setA(-2);
+        equation.setC(-2);
+        assertEquals("- 2,000x^2 - 2,000", equation.toString());
+    }
+
+    @Test
+    public void shouldReturnValidEquationStringForBAndCFactors() {
+        // both positive
+        equation.setA(0);
+        equation.setB(2);
+        equation.setC(2);
+        assertEquals("2,000x + 2,000", equation.toString());
+
+        // positive and negative
+        equation.setB(2);
+        equation.setC(-2);
+        assertEquals("2,000x - 2,000", equation.toString());
+
+        // negative and positive
+        equation.setB(-2);
+        equation.setC(2);
+        assertEquals(" - 2,000x + 2,000", equation.toString());
+
+        // both negative
+        equation.setB(-2);
+        equation.setC(-2);
+        assertEquals(" - 2,000x - 2,000", equation.toString());
+    }
+
+    @Test
+    public void shouldReturnEmptyStringIfFactorsEqualZero() {
+        equation.setA(0);
+        equation.setB(0);
+        equation.setC(0);
+        assertEquals("", equation.toString());
+    }
 }

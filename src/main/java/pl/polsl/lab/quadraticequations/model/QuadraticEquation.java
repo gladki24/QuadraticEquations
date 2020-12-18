@@ -189,7 +189,11 @@ public class QuadraticEquation {
         // format pretty print for b factor
         if (b != 0) {
             if (b > 0) {
-                message += String.format(" + %.3fx", b);
+
+                message += String.format(
+                        a != 0 ? " + %.3fx" : "%.3fx",
+                        b
+                );
             } else {
                 message += String.format(" - %.3fx", b * -1);
             }
@@ -197,8 +201,11 @@ public class QuadraticEquation {
 
         // format pretty print for c factor
         if (c != 0) {
-            if (b > 0) {
-                message += String.format(" + %.3f", c);
+            if (c > 0) {
+                message += String.format(
+                        (b != 0 | a != 0) ? " + %.3f" : "%.3f",
+                        c
+                );
             } else {
                 message += String.format(" - %.3f", c * -1);
             }
