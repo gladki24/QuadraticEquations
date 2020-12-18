@@ -1,6 +1,8 @@
 package pl.polsl.lab.quadraticequations.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -121,60 +123,29 @@ public class MainController implements Initializable {
      * Main application method. {@code main()} method manage application operations.
      */
     public void setInitialValues(List<String> arguments) {
-        double initAFactor, initBFactor, initCFactor, initStartRange, initEndRange, initStep;
+        List<Double> initialValues = Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        int index = 0;
 
-        // init a factor value
-        try {
-            initAFactor = Double.parseDouble(arguments.get(0));
-        } catch (NumberFormatException exception) {
-            initAFactor = -1;
-        }
-
-        // init b factor value
-        try {
-            initBFactor = Double.parseDouble(arguments.get(1));
-        } catch (NumberFormatException exception) {
-            initBFactor = 1;
-        }
-
-        // init c factor value
-        try {
-            initCFactor = Double.parseDouble(arguments.get(2));
-        } catch (NumberFormatException exception) {
-            initCFactor = -1;
-        }
-
-        // init start range value
-        try {
-            initStartRange = Double.parseDouble(arguments.get(3));
-        } catch (NumberFormatException exception) {
-            initStartRange = -10;
-        }
-
-        // init end range value
-        try {
-            initEndRange = Double.parseDouble(arguments.get(4));
-        } catch (NumberFormatException exception) {
-            initEndRange = 10;
-        }
-
-        // init step value
-        try {
-            initStep = Double.parseDouble(arguments.get(5));
-        } catch (NumberFormatException exception) {
-            initStep = 0.1;
+        // parse arguments to double
+        for (String argument : arguments) {
+            try {
+                initialValues.set(index, Double.parseDouble(argument));
+            } catch (NumberFormatException exception) {
+                initialValues.set(index, 0.0);
+            }
+            index++;
         }
 
         // init equation factors
-        activeEquation.setA(initAFactor);
-        activeEquation.setB(initBFactor);
-        activeEquation.setC(initCFactor);
+        activeEquation.setA(initialValues.get(0));
+        activeEquation.setB(initialValues.get(1));
+        activeEquation.setC(initialValues.get(2));
 
         // init fields
         updateFactorFields();
-        startRangeTextBox.setText(String.format("%.0f", initStartRange));
-        endRangeTextBox.setText(String.format("%.0f", initEndRange));
-        stepTextBox.setText(String.format("%.0f", initStep));
+        startRangeTextBox.setText(String.format("%.0f", initialValues.get(3)));
+        endRangeTextBox.setText(String.format("%.0f", initialValues.get(4)));
+        stepTextBox.setText(String.format("%.0f", initialValues.get(5)));
 
         // display results
         updateResultFields();

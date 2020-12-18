@@ -2,6 +2,9 @@ package pl.polsl.lab.quadraticequations.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -33,7 +36,8 @@ public class GuiController extends Application {
 
         // pass application arguments
         MainController mainController = fxmlLoader.getController();
-        mainController.setInitialValues(getParameters().getUnnamed());
+        List<String> initialValues = getParameters().getUnnamed();
+        mainController.setInitialValues(initialValues != null ? initialValues : new ArrayList<String>());
 
         // configure stage
         stage.setTitle("Równania kwadratowe");
