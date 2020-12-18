@@ -1,7 +1,6 @@
 package pl.polsl.lab.quadraticequations.controller;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
